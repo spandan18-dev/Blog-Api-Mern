@@ -8,10 +8,15 @@ app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 
 // Routes 
-import router from './routes/posts.route.js'
-app.use("/api",router)
+import authrouter from './routes/auth.routes.js'
+app.use('/api',authrouter)
 
-// Db Connection 
+import postrouter from './routes/posts.route.js'
+app.use("/api",postrouter)
+
+
+
+// Db Connection and server up 
 import connectDB from './config/db.js'
 connectDB(process.env.MONGODB_URL).then(()=>{
     app.listen(process.env.PORT,()=>{

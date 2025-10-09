@@ -1,5 +1,5 @@
 import express from 'express'
-const router = express.Router()
+const postrouter = express.Router()
 
 
 // Components :
@@ -12,10 +12,10 @@ import {
 } from '../components/post.logic.js'
 
 
-router.get('/posts',allposts)
-router.get('/posts/:id',postid)
-router.post('/posts',create_post)
-router.patch('/posts/:id',update_post)
-router.delete('/posts/:id',delete_post)
+postrouter.get('/posts',allposts)
+postrouter.get('/posts/:id',postid)
+postrouter.post('/posts',create_post)
+postrouter.patch('/posts/:id',update_post)
+postrouter.delete('/posts/:id',delete_post)
 
-export default router
+export default postrouter
