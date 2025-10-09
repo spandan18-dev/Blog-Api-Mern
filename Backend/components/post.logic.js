@@ -18,8 +18,8 @@ const postid = async (req,res)=>{
         const postid = await posts.findById(req.params.id)
         res.status(200).json(postid)
     } catch (error) {
-        res.status(201).json({
-            message : "Error in fetching",
+        res.status(404).json({
+            message : "Post not found",
             error :error
         })
     }
@@ -48,9 +48,38 @@ const create_post = async (req,res)=>{
     }
 }
 
+// Update routes :
+
+const update_post = async (req,res)=>{
+    try {
+        const {id} = req.params
+        const {title,content,slug,tags,category} = req.body
+        const update = await posts.findByIdAndUpdate(id,{title,content,slug,tags,category},{new : true})
+        res.status(200).json({message :"updated sucesfully ..."},update)
+    } catch (error) {
+        res.status(500).json({message : "Failed to update",error})
+    }
+}
+
+
+// Delete posts
+
+const delete_post = async (req,res) =>{
+    try {
+        const {id} = req.params
+        const del = await posts.findByIdAndDelete(id)
+        res.status(200).json({message : "post deleted sucesfully...",del})
+    } catch (error) {
+        res.status(500).json({message :"failed to delete Post",error})
+    }
+}
+
+
 
 export {
     allposts,
     create_post,
-    postid
+    postid,
+    update_post,
+    delete_post
 }
