@@ -1,6 +1,7 @@
 import users from '../models/user.model.js'
 import {validationResult} from 'express-validator'
 import bcrypt from 'bcrypt'
+import {tokengenerator} from '../utils/TokenGeneretor.js'
 
 // Regestation logic :
 
@@ -55,7 +56,12 @@ const userLogin = async (req,res)=>{
             return res.status(400).json({message :'incorrect username or password , Try again'})
         }
 
-        res.status(200).json({message:"user login sucesfully"})
+        const token = await tokengenerator(user)
+
+        if (!token) return res.status(500).json({message:"somthing got wrong"})
+        res.cookie("token",token)
+        res.status(200).json({message:"user login sucesfully",token})
+        
 
     } catch (err) {
         res.status(400).json({message : 'failed to login',

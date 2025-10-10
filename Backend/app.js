@@ -1,11 +1,14 @@
 import express from 'express'
 import dotenv from 'dotenv' ; dotenv.config()
 import debug from 'debug'
+import cookieparser from 'cookie-parser'
+
 const app = express()
 
 // Middlewares 
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
+app.use(cookieparser())
 
 // Routes 
 import authrouter from './routes/auth.routes.js'
