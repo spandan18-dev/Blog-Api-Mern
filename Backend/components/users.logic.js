@@ -70,7 +70,24 @@ const userLogin = async (req,res)=>{
     }
 }
 
+const userLogout = async (req,res)=>{
+
+    try{
+        res.clearCookie("token",{
+            httpOnly: true,
+            secure: true,
+            sameSite: "strict"
+        })
+
+        res.status(200).json({message: "logout sucesfully .."})
+    }catch (err){
+        res.status(400).json({message :"Failed  to logout ",error : err.message})
+    }
+
+}
+
 export {
     userRegestation,
-    userLogin
+    userLogin,
+    userLogout
 }

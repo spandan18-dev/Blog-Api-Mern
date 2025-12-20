@@ -1,12 +1,14 @@
 import express from 'express'
 const authrouter = express.Router()
 import {body} from 'express-validator'
+import { islogin } from '../middlewares/islogin.js'
 
 
 // components 
 import {
     userRegestation,
-    userLogin
+    userLogin,
+    userLogout
 } from '../components/users.logic.js'
 
 //  Regestation pages 
@@ -47,5 +49,10 @@ authrouter.post('/login',[
         .isLength({min:6}).withMessage('password should be at least 6 character long')
 
 ],userLogin)
+
+// Logout 
+
+authrouter.post('/logout',islogin,userLogout)
+
 
 export default authrouter
